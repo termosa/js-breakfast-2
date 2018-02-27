@@ -1,0 +1,1164 @@
+<!doctype html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+
+    <title>reveal.js – The HTML Presentation Framework</title>
+
+    <meta name="description" content="A framework for easily creating beautiful presentations using HTML">
+    <meta name="author" content="Hakim El Hattab">
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <link rel="stylesheet" href="css/reveal.css">
+    <link rel="stylesheet" href="css/theme/black.css" id="theme">
+
+    <!-- Theme used for syntax highlighting of code -->
+    <link rel="stylesheet" href="lib/css/zenburn.css">
+
+    <!-- Printing and PDF exports -->
+    <script>
+      var link = document.createElement( 'link' );
+      link.rel = 'stylesheet';
+      link.type = 'text/css';
+      link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+      document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+
+    <style>
+      .left { text-align: left; }
+      .red { color: #ff2c2d !important; }
+      .green { color: #17ff2e !important; }
+      .list { max-height: 100%; overflow: auto; }
+    </style>
+
+    <!--[if lt IE 9]>
+    <script src="lib/js/html5shiv.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+
+    <div class="reveal">
+
+      <div class="slides">
+        <section>
+          <h1>Unit testing</h1>
+          <h3>JS Breakfast #2</h3>
+        </section>
+
+        <section>
+          <h2>Contents</h2>
+          <ol>
+            <li>What and Why?</li>
+            <li class="fragment shrink">How to?</li>
+            <li>Tools</li>
+            <li>Common Issues</li>
+            <li class="fragment">What is wrong with Angular?</li>
+          </ol>
+        </section>
+
+        <section>
+          <h2>Questions</h2>
+
+          <img src="./i/breakfast.gif" />
+
+          <aside class="notes">
+            <ol>
+              <li>Who has tests on their project?</li>
+              <li>Who write tests?</li>
+              <li>How many people think that unit testing worth spent time?</li>
+            </ol>
+          </aside>
+        </section>
+
+        <section>
+          <section>
+            <h2>Introduction</h2>
+            <h4 class="fragment grow">Why do we need testing?</h4>
+            <h4>Types of testing</h4>
+            <h4>Why unit testing?</h4>
+          </section>
+
+          <section>
+            <h3>Why do we need testing?</h3>
+            <ul>
+              <li class="fragment">Correctness</li>
+              <li class="fragment">Reliability</li>
+              <li class="fragment">Efficiency</li>
+              <li class="fragment red">Automation</li>
+            </ul>
+
+            <aside class="notes">
+              <ul>
+                <li>console, code pen, alert</li>
+                <li>Raspopov</li>
+              </ul>
+            </aside>
+          </section>
+        </section>
+
+        <section>
+          <section>
+            <h2>Introduction</h2>
+            <h4>Why do we need testing?</h4>
+            <h4 class="fragment grow">Types of testing</h4>
+            <h4>Why unit testing?</h4>
+          </section>
+
+          <section>
+            <h3>Types of testing</h3>
+            <ol>
+              <li class="fragment">Functional (E2E) Testing</li>
+              <li class="fragment">Integration Testing</li>
+              <li class="fragment">Unit Testing</li>
+            </ol>
+
+            <aside class="notes">
+              <p>F. app running; like end user</p>
+              <p>I. test a part</p>
+              <p>U. function, unit</p>
+            </aside>
+          </section>
+        </section>
+
+        <section>
+          <section>
+            <h2>Introduction</h2>
+            <h4>Why do we need testing?</h4>
+            <h4>Types of testing</h4>
+            <h4 class="fragment grow">Why unit testing?</h4>
+          </section>
+
+          <section>
+            <h3>Why unit testing?</h3>
+            <ol>
+              <li class="fragment">The fastest</li>
+              <li class="fragment">The easiest</li>
+            </ol>
+          </section>
+        </section>
+
+        <section>
+          <section>
+            <h2>How to do Unit testing?</h2>
+            <pre class="fragment"><code class="js" data-trim>function createHero (power) {
+  return power + '-Man';
+} </code></pre>
+            <pre class="fragment"><code class="js" data-trim>console.assert(
+    createHero('Unit') !== 'Unit-Man',
+    'createHero("Unit") should create Unit-Man'
+); </code></pre>
+          </section>
+
+          <section class="left">
+            <strong>create-hero.js</strong>
+            <pre><code class="js" data-trim>function createHero (power) {
+  return power + '-Man';
+} </code></pre>
+            <div class="fragment">
+              <strong>create-hero.spec.js</strong>
+              <pre><code class="js" data-trim>const createHero = require('./create-hero');
+
+  console.assert( createHero('Unit') !== 'Unit-Man' );
+  console.assert( createHero('PowerPoint') !== 'PowerPoint-Man' ); </code></pre>
+            </div>
+          </section>
+
+          <section>
+            <h2>How to do Unit testing?</h2>
+            <h3 class="fragment green">Done</h3>
+          </section>
+        </section>
+
+        <section>
+          <section>
+            <h2>Tools</h2>
+            <ul>
+              <li class="fragment grow">Linters &amp; Static Typing</li>
+              <li class="">Tape &amp; TAP</li>
+              <li class="">Ava &amp; Istanbul</li>
+              <li class="">Mocha &amp; Chai</li>
+              <li class="">Sinon &amp; TestDouble</li>
+              <li class="">Jest &amp; Jasmine</li>
+            </ul>
+          </section>
+
+          <section>
+            <h3>Linters &amp; Static Typing</h3>
+            <ol>
+              <li class="fragment">Linters</li>
+              <li class="fragment">Static Typing</li>
+            </ol>
+          </section>
+
+          <section class="left">
+            <strong>stringify.js</strong>
+            <pre><code class="js">function stringify (entity) {
+    if (typeof entity !== 'object') {
+        return '';
+    }
+
+    return entity.toString();
+} </code></pre>
+
+            <ol class="fragment">
+              <li class="fragment highlight-red"><code>toString</code> is not a function</li>
+              <li class="fragment highlight-red"><code>entity</code> is not an object</li>
+            </ol>
+          </section>
+        </section>
+
+        <section>
+          <section>
+            <h2>Tools</h2>
+            <ul>
+              <li class="fragment highlight-green">Linters &amp; Static Typing</li>
+              <li class="fragment grow">Tape &amp; TAP</li>
+              <li class="">Ava &amp; Istanbul</li>
+              <li class="">Mocha &amp; Chai</li>
+              <li class="">Sinon &amp; TestDouble</li>
+              <li class="">Jest &amp; Jasmine</li>
+            </ul>
+          </section>
+
+          <section>
+            <h3>Tape &amp; TAP</h3>
+          </section>
+
+          <section class="left">
+            <div>
+              <strong>test.js</strong>
+              <pre><code class="js">const test = require('tape');
+
+test('add numbers', function (t) {
+    t.equal( 2 + 2, 4 );
+    t.end();
+}); </code></pre>
+            </div>
+            <div class="fragment">
+              <strong>bash</strong>
+              <pre><code class="bash">$ node test.js </code></pre>
+            </div>
+          </section>
+
+          <section>
+            <pre><code class="bash">TAP version 13
+# add numbers
+ok 1 should be equal
+
+1..1
+# tests 1
+# pass  1
+
+# ok </code></pre>
+          </section>
+
+          <section>
+            <h3>TAP</h3>
+            <p>Test Anything Protocol</p>
+          </section>
+
+          <section>
+            <p>
+              <nobr>tap-spec</nobr>,
+              <nobr>tap-dot</nobr>,
+              <nobr>faucet</nobr>,
+              <nobr>tap-bail</nobr>,
+              <nobr>tap-browser-color</nobr>,
+              <nobr>tap-json</nobr>,
+              <nobr>tap-min</nobr>,
+              <nobr>tap-nyan</nobr>,
+              <nobr>tap-pessimist</nobr>,
+              <nobr>tap-prettify</nobr>,
+              <nobr>colortape</nobr>,
+              <nobr>tap-xunit</nobr>,
+              <nobr>tap-difflet</nobr>,
+              <nobr>tape-dom</nobr>,
+              <nobr>tap-diff</nobr>,
+              <nobr>tap-notify</nobr>,
+              <nobr>tap-summary</nobr>,
+              <nobr>tap-markdown</nobr>,
+              <nobr>tap-html</nobr>
+            </p>
+          </section>
+
+          <section>
+            <strong>bash</strong>
+            <pre><code class="bash">$ node test.js | tap-diff </code></pre>
+
+            <div class="fragment">
+              <pre><code class="bash">  add numbers
+    ✔  should be equal
+
+passed: 1  failed: 0  of 1 tests  (7ms)
+
+All of 1 tests passed!  </code></pre>
+            </div>
+          </section>
+        </section>
+
+        <section>
+          <section>
+            <h2>Tools</h2>
+            <ul>
+              <li class="green">Linters &amp; Static Typing</li>
+              <li class="fragment highlight-green">Tape &amp; TAP</li>
+              <li class="fragment grow">Ava &amp; Istanbul</li>
+              <li class="">Mocha &amp; Chai</li>
+              <li class="">Sinon &amp; TestDouble</li>
+              <li class="">Jest &amp; Jasmine</li>
+            </ul>
+          </section>
+
+          <section>
+            <h3>Ava &amp; Istanbul</h3>
+          </section>
+
+          <section>
+            <h3>Ava</h3>
+            <pre><code class="js">import test from 'ava';
+
+test('add numbers', async t =&gt; {
+    t.is( 2 + 2, 4 );
+}); </code></pre>
+
+            <pre class="fragment"><code>$ ava </code></pre>
+
+            <aside class="notes">
+              <ol>
+                <li>babel</li>
+                <li>asynchronous</li>
+                <li>parallel</li>
+                <li>pretty output</li>
+              </ol>
+            </aside>
+          </section>
+
+          <section>
+            <h4>Watch</h4>
+
+            <pre><code>$ ava --watch </code></pre>
+
+            <aside class="notes">
+              only changed
+            </aside>
+          </section>
+
+          <section>
+            <h4>Assertions</h4>
+
+            <pre><code class="js">t.truthy(value, [message]);
+t.falsy(value, [message]);
+t.true(value, [message]);
+t.false(value, [message]);
+t.is(value, expected, [message]);
+t.not(value, expected, [message]);
+t.deepEqual(value, expected, [message]);
+t.notDeepEqual(value, expected, [message]);
+t.throws(thrower, [expected, [message]]); </code></pre>
+          </section>
+
+          <section>
+            <h3>Istanbul</h3>
+          </section>
+
+          <section>
+            <pre><code class="bash">$ npm install nyc
+$ nyc ava </code></pre>
+          </section>
+
+          <section>
+            <img src="./i/istanbul-output.png">
+          </section>
+        </section>
+
+        <section>
+          <section>
+            <h2>Tools</h2>
+            <ul>
+              <li class="green">Linters &amp; Static Typing</li>
+              <li class="green">Tape &amp; TAP</li>
+              <li class="fragment highlight-green">Ava &amp; Istanbul</li>
+              <li class="fragment grow">Mocha &amp; Chai</li>
+              <li class="">Sinon &amp; TestDouble</li>
+              <li class="">Jest &amp; Jasmine</li>
+            </ul>
+          </section>
+
+          <section>
+            <h2>Mocha &amp; Chai</h2>
+          </section>
+
+          <section>
+            <h3>Chai</h3>
+            <p>assertion tool</p>
+
+            <aside class="notes">
+              rich API
+            </aside>
+          </section>
+
+          <section>
+            <pre><code class="js">// Assert
+const assert = require('chai').assert;
+assert.equal( 2 + 2, 4 ); </code></pre>
+
+            <pre class="fragment"><code class="js">// Expect
+const expect = require('chai').expect;
+expect( 2 + 2 ).to.equal( 4 ); </code></pre>
+
+            <pre class="fragment"><code class="js">// Should
+require('chai').should();
+( 2 + 2 ).should.equal( 4 ); </code></pre>
+          </section>
+
+          <section>
+            <div class="list">
+              <code>assert</code>, <code>fail</code>, <code>isOk</code>, <code>isNotOk</code>, <code>equal</code>, <code>notEqual</code>, <code>strictEqual</code>, <code>notStrictEqual</code>, <code>deepEqual</code>, <code>notDeepEqual</code>, <code>isAbove</code>, <code>isAtLeast</code>, <code>isBelow</code>, <code>isAtMost</code>, <code>isTrue</code>, <code>isNotTrue</code>, <code>isFalse</code>, <code>isNotFalse</code>, <code>isNull</code>, <code>isNotNull</code>, <code>isNaN</code>, <code>isNotNaN</code>, <code>exists</code>, <code>notExists</code>, <code>isUndefined</code>, <code>isDefined</code>, <code>isFunction</code>, <code>isNotFunction</code>, <code>isObject</code>, <code>isNotObject</code>, <code>isArray</code>, <code>isNotArray</code>, <code>isString</code>, <code>isNotString</code>, <code>isNumber</code>, <code>isNotNumber</code>, <code>isFinite</code>, <code>isBoolean</code>, <code>isNotBoolean</code>, <code>typeOf</code>, <code>notTypeOf</code>, <code>instanceOf</code>, <code>notInstanceOf</code>, <code>include</code>, <code>notInclude</code>, <code>deepInclude</code>, <code>notDeepInclude</code>, <code>nestedInclude</code>, <code>notNestedInclude</code>, <code>deepNestedInclude</code>, <code>notDeepNestedInclude</code>, <code>ownInclude</code>, <code>notOwnInclude</code>, <code>deepOwnInclude</code>, <code>notDeepOwnInclude</code>, <code>match</code>, <code>notMatch</code>, <code>property</code>, <code>notProperty</code>, <code>propertyVal</code>, <code>notPropertyVal</code>, <code>deepPropertyVal</code>, <code>notDeepPropertyVal</code>, <code>nestedProperty</code>, <code>notNestedProperty</code>, <code>nestedPropertyVal</code>, <code>notNestedPropertyVal</code>, <code>deepNestedPropertyVal</code>, <code>notDeepNestedPropertyVal</code>, <code>lengthOf</code>, <code>hasAnyKeys</code>, <code>hasAllKeys</code>, <code>containsAllKeys</code>, <code>doesNotHaveAnyKeys</code>, <code>doesNotHaveAllKeys</code>, <code>doesNotHaveAllKeys</code>, <code>hasAllDeepKeys</code>, <code>containsAllDeepKeys</code>, <code>doesNotHaveAnyDeepKeys</code>, <code>doesNotHaveAllDeepKeys</code>, <code>throws</code>, <code>doesNotThrow</code>, <code>operator</code>, <code>closeTo</code>, <code>approximately</code>, <code>sameMembers</code>, <code>notSameMembers</code>, <code>sameDeepMembers</code>, <code>notSameDeepMembers</code>, <code>sameOrderedMembers</code>, <code>notSameOrderedMembers</code>, <code>sameDeepOrderedMembers</code>, <code>notSameDeepOrderedMembers</code>, <code>includeMembers</code>, <code>notIncludeMembers</code>, <code>includeDeepMembers</code>, <code>notIncludeDeepMembers</code>, <code>includeOrderedMembers</code>, <code>notIncludeOrderedMembers</code>, <code>includeDeepOrderedMembers</code>, <code>notIncludeDeepOrderedMembers</code>, <code>oneOf</code>, <code>changes</code>, <code>changesBy</code>, <code>doesNotChange</code>, <code>changesButNotBy</code>, <code>increases</code>, <code>increasesBy</code>, <code>doesNotIncrease</code>, <code>increasesButNotBy</code>, <code>decreases</code>, <code>decreasesBy</code>, <code>doesNotDecrease</code>, <code>doesNotDecrease</code>, <code>decreasesButNotBy</code>, <code>ifError</code>, <code>isExtensible</code>, <code>isNotExtensible</code>, <code>isSealed</code>, <code>isNotSealed</code>, <code>isFrozen</code>, <code>isNotFrozen</code>, <code>isEmpty</code>, <code>isNotEmpty</code>
+            </div>
+
+            <aside class="notes">
+              124, throws error and can be handled with Mocha
+            </aside>
+          </section>
+
+          <section>
+            <h3>Mocha</h3>
+            <p>Testing Framework</p>
+
+            <aside class="notes">
+              no assertions<br>
+              rich API, but take a look at only one
+            </aside>
+          </section>
+
+          <section>
+            <pre class="fragment"><code class="js">require('chai').should(); </code></pre>
+
+            <pre><code class="js">describe( 'Math', function () {
+    it( 'should add numbers', function () { </code></pre>
+
+            <pre class="fragment"><code class="js">        ( 2 + 2 ).should.equal( 4 ); </code></pre>
+
+            <pre><code class="js">
+    });
+}); </code></pre>
+
+            <aside class="notes">
+              <p>is (2 + 2) clear?</p>
+              <p>
+                <code>it()</code> is <code>test()</code>, <code>describe()</code> is for grouping
+              </p>
+              <p>supports promisses and <code>done()</code> callback</p>
+            </aside>
+          </section>
+
+          <section>
+            <pre><code class="bash">$ mocha --watch --reporter nyan </code></pre>
+
+            <img class="fragment" src="./i/nyan-reporter.gif" />
+
+            <aside class="notes">
+              tape and ava doesn't support asserions tool, but can do with plugins
+            </aside>
+          </section>
+        </section>
+
+        <section>
+          <section>
+            <h2>Tools</h2>
+            <ul>
+              <li class="green">Linters &amp; Static Typing</li>
+              <li class="green">Tape &amp; TAP</li>
+              <li class="green">Ava &amp; Istanbul</li>
+              <li class="fragment highlight-green">Mocha &amp; Chai</li>
+              <li class="fragment grow">Sinon &amp; TestDouble</li>
+              <li class="">Jest &amp; Jasmine</li>
+            </ul>
+          </section>
+
+          <section>
+            <h2>Sinon &amp; TestDouble</h2>
+
+            <aside class="notes">
+              check side effects and control environment, this is where mocking tools get into the game
+            </aside>
+          </section>
+
+          <section>
+            <pre><code class="js">function add (a, b, callback) {
+    callback( a + b );
+} </code></pre>
+          </section>
+
+          <section>
+            <pre><code class="js">const test = require('ava'); </code></pre>
+
+            <pre class="fragment"><code class="js">const sinon = require('sinon'); </code></pre>
+          </section>
+
+          <section>
+            <pre><code class="js">test('add numbers', t =&gt; { </code></pre>
+
+            <pre class="fragment"><code class="js">    const spy = sinon.spy(); </code></pre>
+
+            <pre class="fragment"><code class="js">    add( 2, 2, spy ); </code></pre>
+
+            <pre class="fragment"><code class="js">    t.true(spy.calledOnce);
+    t.true(spy.calledWith( 4 )); </code></pre>
+
+            <pre><code class="js">}); </code></pre>
+
+            <aside class="notes">
+              <p>help with assertions a lot</p>
+              <p>craete and configure stubs to return specific value</p>
+              <p>fake server</p>
+            </aside>
+          </section>
+
+          <section>
+            <h3>Fake server</h3>
+
+            <pre><code class="js">test('ping server', async t =&gt; {
+  const server = sinon.fakeServer.create();
+
+  server.respondWith('GET', '/ping', [
+    200,
+    { 'Content-Type': 'application/json' },
+    '{ "answer": "pong" }'
+  ]);
+
+  const response = await pingServer();
+
+  t.is(response.answer, 'pong');
+}); </code></pre>
+
+            <aside class="notes">
+              sinon is de-facto but there is another tool worth to see
+            </aside>
+          </section>
+
+          <section>
+            <h3>TestDouble</h3>
+
+            <aside class="notes">
+              <p>September 2015</p>
+              <p>interesting syntax</p>
+            </aside>
+          </section>
+
+          <section>
+            <strong>get-users.js</strong>
+            <pre><code class="js">const axios = require('axios');
+
+function getUsers () {
+    return axios.get('/users');
+}
+
+module.exports = getUsers; </code></pre>
+          </section>
+
+          <section>
+            <pre class="fragment"><code class="js">const test = require('ava');
+const td = require('testdouble'); </code></pre>
+
+            <pre class="fragment"><code class="js">const axios = td.replace('axios'); </code></pre>
+
+            <pre class="fragment"><code class="js">td.when(axios.get('/users'))
+    .thenResolve([ { name: 'admin' } ]); </code></pre>
+
+            <pre class="fragment"><code class="js">const getUsers = require('./get-users'); </code></pre>
+
+            <aside class="notes">
+              here is a little of magic so pay attention to details
+            </aside>
+          </section>
+
+          <section>
+            <pre><code class="js">// ...
+
+td.when(axios.get('/users'))
+    .thenResolve([ { name: 'admin' } ]);
+
+const getUsers = require('./get-users'); </code></pre>
+
+            <pre class="fragment"><code class="js">test('get users', async t =&gt; {
+    const users = await getUsers();
+    t.deepEqual(users, [ { name: 'admin' } ]);
+}); </code></pre>
+
+            <aside class="notes">
+              <p>no idea how to resolve some problems</p>
+              <p>there is no life for automation testing without mocks</p>
+            </aside>
+          </section>
+        </section>
+
+        <section>
+          <section>
+            <h2>Tools</h2>
+            <ul>
+              <li class="green">Linters &amp; Static Typing</li>
+              <li class="green">Tape &amp; TAP</li>
+              <li class="green">Ava &amp; Istanbul</li>
+              <li class="green">Mocha &amp; Chai</li>
+              <li class="fragment highlight-green">Sinon &amp; TestDouble</li>
+              <li class="fragment grow">Jest &amp; Jasmine</li>
+            </ul>
+          </section>
+
+          <section>
+            <h2>
+              <span class="fragment highlight-green">Jest</span>
+              &amp;
+              <span class="fragment highlight-red">Jasmine</span>
+            </h2>
+
+            <aside class="notes">
+              <p>full-featured, all-inclusive</p>
+              <p>Jasmine mature, Jest sexy</p>
+              <p>thatnks to FB for Jest</p>
+              <p>cause no love to Jasmine we speak about Jest</p>
+            </aside>
+          </section>
+
+          <section>
+            <h3>Jest Syntax</h3>
+
+            <pre class="fragment"><code class="js">function runAssertions () {
+    expect( 2 + 2 ).toBe( 4 );
+} </code></pre>
+
+          </section>
+
+          <section>
+            <h3>Jest Syntax</h3>
+
+            <pre class="fragment"><code class="js">describe('Math', function () {
+    it('add numbers', runAssertions);
+}); </code></pre>
+
+            <pre class="fragment"><code class="js">test('Math: add numbers', runAssertions); </code></pre>
+          </section>
+
+          <section>
+            <pre><code class="js">jest.mock('axios', () =&gt; {
+    return {
+        get: jest.fn(async () =&gt; [])
+    };
+}); </code></pre>
+
+            <pre class="fragment"><code class="js">async function runAssertions () {
+    const getUsers = require('./get-users');
+    const users = await getUsers();
+    expect( users.length ).toBe( 0 );
+} </code></pre>
+
+            <aside class="notes">
+              <p>asynchronous and mocking is included</p>
+              <p>parallelized and interactive menu</p>
+            </aside>
+          </section>
+
+          <section>
+            <pre><code class="bash">$ jest --watch --coverage </code></pre>
+
+            <aside class="notes">
+              <p>coverage tool integrated</p>
+              <p>interactive menu</p>
+            </aside>
+          </section>
+        </section>
+
+        <section>
+          <h2>Tools</h2>
+          <ul>
+            <li class="green">Linters &amp; Static Typing</li>
+            <li class="green">Tape &amp; TAP</li>
+            <li class="green">Ava &amp; Istanbul</li>
+            <li class="green">Mocha &amp; Chai</li>
+            <li class="green">Sinon &amp; TestDouble</li>
+            <li class="fragment highlight-green">Jest &amp; Jasmine</li>
+          </ul>
+        </section>
+
+        <section>
+          break;
+        </section>
+
+        <section>
+          <h2>Common Issues</h2>
+        </section>
+
+        <section>
+          <section>
+            <h3>ES6 modules</h3>
+          </section>
+
+          <section>
+            <pre><code class="bash">SyntaxError: Unexpected token import </code></pre>
+
+            <aside class="notes">
+              <p>everybody?</p>
+              <p>babel, buble</p>
+              <p>webpack, rollup handle imports</p>
+              <p>unit testing is not for <strong>bundle.js</strong></p>
+              <p>nodejs module preloader</p>
+            </aside>
+          </section>
+
+          <section>
+            <pre><code class="bash"># Install Babel modules
+$ npm install babel-core babel-preset-env
+$ npm install babel-register </code></pre>
+
+            <pre class="fragment"><code class="bash"># Configure Babel
+$ echo '{ "presets": ["env"] }' &gt; .babelrc </code></pre>
+
+            <pre class="fragment"><code class="bash"># Run ES6 code with NodeJS
+$ node -r babel-register module.js </code></pre>
+
+            <aside class="notes">
+              <p>after all, guess how to use Tape with ES6?</p>
+            </aside>
+          </section>
+
+          <section>
+            <pre><code class="bash"># Install Babel modules
+$ npm install babel-core babel-preset-env
+$ npm install babel-register
+
+# Configure Babel
+$ echo '{ "presets": ["env"] }' &gt; .babelrc </code></pre>
+
+            <pre class="fragment"><code class="bash"># Run ES6 code with Mocha
+$ mocha -r babel-register </code></pre>
+
+            <aside class="notes">
+              <p>ava had before, config file now</p>
+            </aside>
+          </section>
+
+          <section>
+            <strong>package.json</strong>
+            <pre><code class="json">{
+    …,
+    "ava": {
+        "require": ["babel-register"]
+    }
+} </code></pre>
+          </section>
+
+          <section>
+            <pre><code class="bash"># Install Babel modules
+$ npm install babel-core babel-preset-env
+$ npm install babel-jest </code></pre>
+
+            <pre class="fragment"><code class="bash"># Configure Babel
+$ echo '{ "presets": ["env"] }' &gt; .babelrc </code></pre>
+
+            <pre class="fragment"><code class="bash"># Run ES6 tests with Jest
+$ jest </code></pre>
+
+            <aside class="notes">
+              <p>be aware using compilers in a large projects</p>
+              <p>Ava and Jest will save some time</p>
+            </aside>
+          </section>
+        </section>
+
+        <section>
+          <section>
+            <h3>Mocking Dependencies</h3>
+
+            <div class="fragment">
+              <h4 class="fragment grow">mock-require</h4>
+              <h4>proxyquire</h4>
+            </div>
+
+            <aside class="notes">
+              <p>Unit is not Integration</p>
+              <p>have seen TestDouble and Jest</p>
+            </aside>
+          </section>
+
+          <section>
+            <pre><code class="js">const mock = require('mock-require');
+const sinon = require('sinon'); </code></pre>
+
+            <pre class="fragment"><code class="js">mock('axios', {
+    get: sinon.stub().resolves( 42 )
+}); </code></pre>
+
+            <pre class="fragment"><code class="js">const getUsers = require('./get-users'); </code></pre>
+
+            <aside class="notes">
+              <p>stub is like a spy but programmable</p>
+              <p>very similar to Jest and TestDouble</p>
+            </aside>
+          </section>
+
+          <section>
+            <pre><code class="js">const proxy = require('proxyquire');
+const sinon = require('sinon'); </code></pre>
+
+            <pre class="fragment"><code class="js">const getUsers = proxy('./get-users', {
+    axios: {
+        get: sinon.stub().resolves( 42 )
+    }
+}); </code></pre>
+
+            <aside class="notes">
+              <p>super popular</p>
+              <p>straightforward</p>
+            </aside>
+          </section>
+        </section>
+
+        <section>
+          <h3>Frameworks</h3>
+
+          <aside class="notes">
+            <p>we usually work with frameworks</p>
+            <p>it can be tricky but it is already solved</p>
+          </aside>
+        </section>
+
+        <section>
+          <section>
+            <h3>React</h3>
+
+            <aside class="notes">
+              <p>the easiest from popular</p>
+            </aside>
+          </section>
+
+          <section class="left">
+            <strong>.babelrc</strong>
+            <pre><code class="json">{
+    "presets": [ "env", "react" ]
+} </code></pre>
+
+            <div class="fragment">
+              <strong>bash</strong>
+              <pre><code class="bash">$ npm install react babel-preset-react </code></pre>
+            </div>
+
+            <aside class="notes">
+              <p>suppose to have</p>
+              <p>then Testing F can require JSX</p>
+            </aside>
+          </section>
+
+          <section class="left">
+            <strong>package.json</strong>
+            <pre><code class="json">{
+    …,
+    "ava": {
+        "require": [ "babel-register" ],
+        "babel": "inherit"
+    }
+} </code></pre>
+
+            <aside class="notes">
+              <p>do you remember that ava uses babel already?</p>
+              <p>you can tell it to use your <strong>.babelrc</strong></p>
+            </aside>
+          </section>
+
+          <section>
+            <pre><code class="js">import test from 'ava'; </code></pre>
+
+            <pre class="fragment"><code class="js">import Link from './Link'; </code></pre>
+
+            <pre class="fragment"><code class="js">import React from 'react'; </code></pre>
+
+            <pre class="fragment"><code class="js">test('&lt;Link /&gt;', t =&gt; {
+    const link = &lt;Link /&gt;;
+    t.fail('not ready yet');
+}); </code></pre>
+
+            <aside class="notes">
+              <ol>
+                <li>the ava itself</li>
+                <li>the component to test</li>
+                <li>React, to use JSX in Ava</li>
+                <li>test it</li>
+              </ol>
+            </aside>
+          </section>
+
+          <section>
+            <pre><code class="js">import renderer from 'react-test-renderer'; </code></pre>
+
+            <pre class="fragment"><code class="js">const link = renderer
+    .create(&lt;Link&gt;text&lt;/Link&gt;)
+    .toJSON(); </code></pre>
+
+            <pre class="fragment"><code class="js">test('&lt;Link /&gt;', t =&gt; {
+    t.is(link.type, 'a');
+    t.deepEqual(link.children, [ 'text' ]);
+}); </code></pre>
+
+            <aside class="notes">
+              <p>pause: what ReactDOM renders</p>
+            </aside>
+          </section>
+
+          <section>
+            <h3>Enzyme</h3>
+
+            <aside class="notes">
+              requires a little more configuration
+            </aside>
+          </section>
+
+          <section class="left">
+            <pre><code class="bash">$ npm install enzyme enzyme-adapter-react-16 react-dom </code></pre>
+
+            <div class="fragment">
+              <strong>enzyme-config.js</strong>
+              <pre><code class="js">import { configure } from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
+
+configure({ adapter: new Adapter() }); </code></pre>
+            </div>
+          </section>
+
+          <section>
+            <pre><code class="bash">$ npx mocha -r babel-register -r ./enzyme-adapter.js </code></pre>
+
+            <aside class="notes">
+              so what can we do with Enzyme?
+            </aside>
+          </section>
+
+          <section>
+            <pre><code class="js">import React from 'react';
+import Link from './Link';
+import { expect } from 'chai'; </code></pre>
+          </section>
+
+          <section>
+            <pre class="fragment"><code class="js">import { shallow } from 'enzyme'; </code></pre>
+
+            <pre><code class="js">describe('&lt;Link /&gt;', () =&gt; {
+    it('should handle mouse hover', () =&gt; { </code></pre>
+            <pre class="fragment"><code class="js">        const link = shallow(&lt;Link&gt;text&lt;/Link&gt;); </code></pre>
+            <pre class="fragment"><code class="js">        expect(link.hasClass('hovered')).to.not.be.true; </code></pre>
+
+            <pre class="fragment"><code class="js">        link.simulate('mouseenter');
+        expect(link.hasClass('hovered')).to.be.true; </code></pre>
+
+            <pre><code class="js">    });
+}); </code></pre>
+
+            <aside class="notes">
+              <p>shallow - renders element without calling childs</p>
+              <p>cool?</p>
+            </aside>
+          </section>
+
+          <section>
+            <h3>create-react-app</h3>
+            <div class="fragment">
+              ♥️
+              <h3>Jest</h3>
+            </div>
+          </section>
+        </section>
+
+        <section>
+          <section>
+            <h3 class="fragment highlight-green">Vue</h3>
+
+            <div class="fragment">
+              <h4>Jest</h4>
+              <h4>Mocha</h4>
+            </div>
+
+            <aside class="notes">
+              <p>vue components html&amp;css&amp;js</p>
+              <p>have to be processed</p>
+              <p>has 2 options: Jest or Mocha</p>
+            </aside>
+          </section>
+
+          <section>
+            <h3>snapshots</h3>
+
+            <aside class="notes">
+              any kind, but components
+            </aside>
+          </section>
+
+          <section>
+            <pre><code class="js">const HelloWorld = require('@/components/HelloWorld')
+const Vue = require('vue') </code></pre>
+
+            <pre class="fragment"><code class="js">const createElement = () =&gt; {
+    const Constructor = Vue.extend(HelloWorld)
+    return new Constructor().$mount()
+} </code></pre>
+
+            <pre class="fragment"><code class="js">describe('&lt;HelloWorld /&gt;', () => {
+    it('should match snapshot', () => {
+        const vm = createElement()
+        expect(vm.$el).toMatchSnapshot()
+    })
+}) </code></pre>
+
+            <aside class="notes">
+              <p>we called toMatchSnapshot on DOM tree</p>
+              <p>what will happen? Nothing!</p>
+            </aside>
+          </section>
+
+          <section>
+            <h4 class="fragment red">something happened</h4>
+
+            <aside class="notes">
+              <p>at least first time, and hopefuly second time</p>
+              <p>when something happens - start worry</p>
+              <p>it checks if nothing has changed since last snapshot</p>
+            </aside>
+          </section>
+
+          <section>
+            <img src="./i/jest-snapshot.png" />
+
+            <aside class="notes">
+              <p>works perfect with React</p>
+              <p>Ava has same assertion</p>
+              <p>for Chai you can install chai-jest-snapshot</p>
+              <p>use it for any kind of objects (to test formatters)</p>
+            </aside>
+          </section>
+
+          <section>
+            <pre><code class="js">it('should match snapshot', () =&gt; {
+    const vm = createElement()
+    expect(vm.$el).toMatchSnapshot()
+    vm.toggle()
+    expect(vm.$el).toMatchSnapshot()
+}) </code></pre>
+          </section>
+        </section>
+
+        <section>
+          <section>
+            <div class="fragment">
+              <h3 class="fragment highlight-red">Angular</h3>
+            </div>
+          </section>
+
+          <section>
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/BumgayeUC08?rel=0&amp;showinfo=0&amp;start=162" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+          </section>
+        </section>
+
+        <section>
+          <section>
+            <h2>time?</h2>
+          </section>
+
+          <section>
+            <h3>Continuous Integration</h3>
+
+            <pre class="fragment"><code class="yaml">language: node_js
+node_js:
+  - "4" </code></pre>
+          </section>
+
+          <section>
+            <h3>Prevent Git commands</h3>
+
+            <div class="fragment left">
+              <strong>bash</strong>
+              <pre><code class="bash">$ npm install husky </code></pre>
+            </div>
+
+            <div class="fragment left">
+              <strong>package.json</strong>
+              <pre><code class="json">{
+      …,
+      "scripts": {
+          "test": "jest",
+          "prepush": "npm test",
+          "precommit": "npm test"
+      }
+  } </code></pre>
+            </div>
+
+            <aside class="notes">
+              not only write, but run tests!
+            </aside>
+          </section>
+        </section>
+
+        <section>
+          <section>
+            <h2><span class="fragment highlight-green">Con</span><span class="fragment highlight-blue">clu</span>si<span class="fragment highlight-red">on</span>s</h2>
+
+            <aside class="notes">
+              <ul>
+                <li>many options</li>
+                <li>you don't need everybody to write unit tests</li>
+                <li>or you can force them with Husky</li>
+                <li>from my experience: you will discover a lot about your code while writing tests</li>
+              </ul>
+            </aside>
+          </section>
+        </section>
+
+        <section
+          class="left"
+          style="background: rgba(0,0,0,.4);box-shadow:0 0 0px 5000px rgba(0,0,0,.4);"
+          data-background="http://i0.kym-cdn.com/photos/images/newsfeed/001/048/205/7c5.gif"
+          >
+          <h1 style="text-shadow: 0px 5px 10px #000;">THE END</h1>
+          <h3 style="text-shadow: 0px 4px 8px #000;">Thanks to Dev-Pro!</h3>
+          <p style="text-shadow: 0px 3px 2px #000;">
+            - prepared by @termosa (<a href="http://me.st">me.st</a>)
+          </p>
+        </section>
+
+      </div>
+
+    </div>
+
+    <script src="lib/js/head.min.js"></script>
+    <script src="js/reveal.js"></script>
+
+    <script>
+
+      // More info https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+
+        transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+        // More info https://github.com/hakimel/reveal.js#dependencies
+        dependencies: [
+          { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+          { src: 'plugin/search/search.js', async: true },
+          { src: 'plugin/zoom-js/zoom.js', async: true },
+          { src: 'plugin/notes/notes.js', async: true }
+        ]
+      });
+
+    </script>
+
+  </body>
+</html>
