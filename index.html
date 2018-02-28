@@ -575,6 +575,7 @@ const td = require('testdouble'); </code></pre>
             <pre class="fragment"><code class="js">const getUsers = require('./get-users'); </code></pre>
 
             <aside class="notes">
+              <p>ATTENTION</p>
               here is a little of magic so pay attention to details
             </aside>
           </section>
@@ -1070,9 +1071,12 @@ const Vue = require('vue') </code></pre>
           <section>
             <h3>Continuous Integration</h3>
 
-            <pre class="fragment"><code class="yaml">language: node_js
+            <div class="left fragment">
+              <strong>.travis.yml</strong>
+              <pre><code class="yaml">language: node_js
 node_js:
   - "4" </code></pre>
+            </div>
           </section>
 
           <section>
